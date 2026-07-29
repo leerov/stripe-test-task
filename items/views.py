@@ -78,13 +78,29 @@ def buy_order(request, order_id):
             'quantity': 1,
         })
 
+    session_kwargs = {
+        'line_items': line_items,
+        'mode': 'payment',
+        'success_url': settings.DOMAIN + '/success.html',
+        'cancel_url': settings.DOMAIN + '/cancel.html',
+    }
+
+    if order.tax:
+        session_kwargs['automatic_tax'] = {'enabled': True}
+
+    if order.discount:
+        coupon_data = {'name': order.discount.name}
+        if order.discount.percent_off:
+            coupon_data['percent_off'] = order.discount.percent_off
+        elif order.discount.amount_off:
+            coupon_data['amount_off'] = order.discount.amount_off
+            coupon_data['currency'] = currency
+
+        coupon = stripe.Coupon.create(**coupon_data)
+        session_kwargs['discounts'] = [{'coupon': coupon.id}]
+
     try:
-        checkout_session = stripe.checkout.Session.create(
-            line_items=line_items,
-            mode='payment',
-            success_url=settings.DOMAIN + '/success.html',
-            cancel_url=settings.DOMAIN + '/cancel.html',
-        )
+        checkout_session = stripe.checkout.Session.create(**session_kwargs)
         return JsonResponse({'id': checkout_session.id})
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)
