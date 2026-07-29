@@ -3,7 +3,7 @@ from django.db import models
 class Item(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
-price = models.IntegerField(help_text="Price in cents (e.g., 50 = $0.50, 3300 = $33.00). Stripe minimum is 50.")
+    price = models.IntegerField(help_text="Price in cents (e.g., 50 = $0.50, 3300 = $33.00). Stripe minimum is 50.")
     currency = models.CharField(max_length=3, default='usd')
 
     def __str__(self):
