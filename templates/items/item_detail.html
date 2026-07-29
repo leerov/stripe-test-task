@@ -8,6 +8,7 @@
     <h1>{{ item.name }}</h1>
     <p>{{ item.description }}</p>
 <p>Price: {{ item.price }} cents ({{ item.currency|upper }})</p>
+<p>Price: {{ item.price_display }} {{ item.currency|upper }}</p>
     <button id="buy-button">Buy</button>
     <script type="text/javascript">
       var stripe = Stripe('{{ public_key }}');

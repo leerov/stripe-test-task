@@ -9,6 +9,10 @@ price = models.IntegerField(help_text="Price in cents (e.g., 50 = $0.50, 3300 = 
     def __str__(self):
         return self.name
 
+    @property
+    def price_display(self):
+        return f"{self.price / 100:.2f}"
+
 class Discount(models.Model):
     name = models.CharField(max_length=100)
     percent_off = models.IntegerField(help_text="Percentage off (0-100)", null=True, blank=True)
