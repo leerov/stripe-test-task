@@ -6,6 +6,9 @@ from .models import Item, Order
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+def index(request):
+    return render(request, 'items/index.html')
+
 def item_detail(request, item_id):
     item = get_object_or_404(Item, id=item_id)
     if item.currency.lower() == 'eur':

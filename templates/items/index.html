@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stripe Test Task</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #635bff; }
+        code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; }
+        a { color: #635bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>Stripe Test Task</h1>
+    <p>Добро пожаловать! Приложение успешно запущено.</p>
+    <h2>Что делать дальше:</h2>
+    <ol>
+        <li>Примените миграции базы данных (если еще не сделали):<br>
+            <code>make migrate</code>
+        </li>
+        <li>Создайте суперпользователя для доступа к админ-панели:<br>
+            <code>make createsuperuser</code>
+        </li>
+        <li>Перейдите в <a href="/admin/">Админ-панель</a>, чтобы создать товары (Item).</li>
+        <li>После создания товара с ID=1, вы можете перейти на его страницу:<br>
+            <a href="/item/1">/item/1</a> (замените 1 на реальный ID товара).
+        </li>
+    </ol>
+    <p><strong>Важно:</strong> Убедитесь, что в файле <code>.env</code> прописаны ваши тестовые ключи Stripe.</p>
+</body>
+</html>

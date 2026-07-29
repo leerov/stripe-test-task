@@ -21,8 +21,8 @@ clean:
 	find . -type d -name "__pycache__" -delete
 	rm -f db.sqlite3
 
-docker-up: setup-env
+up: setup-env
 	docker-compose up --build
 
-docker-down:
+down:
 	docker-compose down
