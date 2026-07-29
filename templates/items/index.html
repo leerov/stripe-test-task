@@ -15,11 +15,11 @@
     <p>Добро пожаловать! Приложение успешно запущено.</p>
     <h2>Что делать дальше:</h2>
     <ol>
-        <li>Примените миграции базы данных (если еще не сделали):<br>
-            <code>make migrate</code>
+        <li>Примените миграции базы данных:<br>
+            <code>make docker-migrate</code> (или <code>make migrate</code> локально)
         </li>
         <li>Создайте суперпользователя для доступа к админ-панели:<br>
-            <code>make createsuperuser</code>
+            <code>make docker-createsuperuser</code> (или <code>make createsuperuser</code> локально)
         </li>
         <li>Перейдите в <a href="/admin/">Админ-панель</a>, чтобы создать товары (Item).</li>
         <li>После создания товара с ID=1, вы можете перейти на его страницу:<br>

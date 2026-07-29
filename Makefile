@@ -26,3 +26,8 @@ up: setup-env
 
 down:
 	docker-compose down
+docker-migrate:
+	docker-compose exec web python manage.py migrate
+
+docker-createsuperuser:
+	docker-compose exec web python manage.py createsuperuser
