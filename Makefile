@@ -26,6 +26,8 @@ run:
 
 migrate:
 	python3 manage.py migrate
+makemigrations:
+	python3 manage.py makemigrations
 
 createsuperuser:
 	python3 manage.py createsuperuser
@@ -45,6 +47,8 @@ down:
 	docker-compose down
 docker-migrate:
 	docker-compose exec web python manage.py migrate
+docker-makemigrations:
+	docker-compose exec web python manage.py makemigrations
 
 docker-createsuperuser:
 	docker-compose exec web python manage.py createsuperuser
