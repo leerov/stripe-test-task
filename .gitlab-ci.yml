@@ -1,0 +1,43 @@
+before_script:
+  - cp .env.example .env
+
+stages:
+  - build
+  - push
+  - deploy
+
+build:
+  stage: build
+  tags:
+    - docker
+  script:
+    - docker compose up --build -d web
+    - sleep 30
+    - docker compose logs web
+    - docker compose down web
+
+push:
+  stage: push
+  tags:
+    - docker
+  script:
+    - docker compose build web
+
+    - docker tag leerov_stripe-test-task_web:latest $CI_REGISTRY/$CI_PROJECT_PATH/leerov_stripe-test-task_web:latest
+    - docker tag leerov_stripe-test-task_web:latest $CI_REGISTRY/$CI_PROJECT_PATH/leerov_stripe-test-task_web:$CI_COMMIT_SHORT_SHA
+
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+
+    - docker push $CI_REGISTRY/$CI_PROJECT_PATH/leerov_stripe-test-task_web:latest
+    - docker push $CI_REGISTRY/$CI_PROJECT_PATH/leerov_stripe-test-task_web:$CI_COMMIT_SHORT_SHA
+
+deploy:
+  stage: deploy
+  tags:
+    - docker
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker pull $CI_REGISTRY/$CI_PROJECT_PATH/leerov_stripe-test-task_web:latest
+
+    - docker rm -f leerov_stripe-test-task_web || true
+    - docker run -d --name leerov_stripe-test-task_web --restart unless-stopped -p 9292:8000 -v /tb_storage/stripe-test-task/data_base:/app/data_base $CI_REGISTRY/$CI_PROJECT_PATH/leerov_stripe-test-task_web:latest

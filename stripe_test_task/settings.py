@@ -10,7 +10,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-test-key')
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = [os.getenv('DOMAIN', 'http://localhost:8000')]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -56,7 +55,7 @@ WSGI_APPLICATION = 'stripe_test_task.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=f'sqlite:///{BASE_DIR / "db.sqlite3"}',
+        default=f'sqlite:///{BASE_DIR / "data_base/db.sqlite3"}',
         conn_max_age=600
     )
 }
@@ -94,8 +93,10 @@ STRIPE_SECRET_KEY_EUR = os.getenv('STRIPE_SECRET_KEY_EUR', STRIPE_SECRET_KEY)
 
 # Domain configuration for CSRF and absolute URLs
 DOMAIN = os.getenv('DOMAIN', 'stripe-test-task.onrender.com')
-clean_domain = DOMAIN.replace('http://', '').replace('https://', '').rstrip('/')
+clean_domain = DOMAIN.replace(
+    'http://', '').replace('https://', '').rstrip('/')
 CSRF_TRUSTED_ORIGINS = [
+    "https://stripe-test-task.osfb.dev",
     'http://localhost:8000',
     'https://localhost:8000',
     f'https://{clean_domain}',

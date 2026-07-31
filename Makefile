@@ -40,10 +40,14 @@ clean:
 	find . -type d -name "__pycache__" -delete
 	rm -f db.sqlite3
 
-up: setup-env
-	docker-compose up --build
+up: build
+	docker-compose up -d web
+
+build: setup-env
+	docker-compose build web
 
 down:
+	docker-compose logs
 	docker-compose down
 docker-migrate:
 	docker-compose exec web python manage.py migrate
