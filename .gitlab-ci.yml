@@ -41,3 +41,4 @@ deploy:
 
     - docker rm -f leerov_stripe-test-task_web || true
     - docker run -d --name leerov_stripe-test-task_web --restart unless-stopped -p 9292:8000 -v /tb_storage/stripe-test-task/data_base:/app/data_base $CI_REGISTRY/$CI_PROJECT_PATH/leerov_stripe-test-task_web:latest
+    - docker exec leerov_stripe-test-task_web python3 manage.py migrate
