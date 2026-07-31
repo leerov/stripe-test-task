@@ -45,8 +45,8 @@ def buy_item(request, item_id):
                 },
             ],
             mode='payment',
-            success_url=settings.DOMAIN + '/success.html',
-            cancel_url=settings.DOMAIN + '/cancel.html',
+            success_url=settings.DOMAIN + '/success/',
+            cancel_url=settings.DOMAIN + '/cancel/',
         )
         return JsonResponse({'id': checkout_session.id})
     except Exception as e:
@@ -81,8 +81,8 @@ def buy_order(request, order_id):
     session_kwargs = {
         'line_items': line_items,
         'mode': 'payment',
-        'success_url': settings.DOMAIN + '/success.html',
-        'cancel_url': settings.DOMAIN + '/cancel.html',
+        'success_url': settings.DOMAIN + '/success/',
+        'cancel_url': settings.DOMAIN + '/cancel/',
     }
 
     if order.tax:

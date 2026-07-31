@@ -1,31 +1,96 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stripe Test Task</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; }
-        h1 { color: #635bff; }
-        code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; }
-        a { color: #635bff; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+        :root {
+            --bg-color: #fdfbf7;
+            --text-color: #4a5568;
+            --primary-color: #8892bf;
+            --accent-color: #635bff;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            max-width: 600px;
+            width: 90%;
+        }
+        h1 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 2em;
+        }
+        h2 {
+            color: var(--text-color);
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        ol {
+            padding-left: 20px;
+            line-height: 1.8;
+        }
+        code {
+            background-color: #edf2f7;
+            color: #2d3748;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .note {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e6fffa;
+            border-left: 4px solid #38b2ac;
+            border-radius: 4px;
+            color: #234e52;
+        }
     </style>
 </head>
 <body>
-    <h1>Stripe Test Task</h1>
-    <p>Добро пожаловать! Приложение успешно запущено.</p>
-    <h2>Что делать дальше:</h2>
-    <ol>
-        <li>Примените миграции базы данных:<br>
-            <code>make docker-migrate</code> (или <code>make migrate</code> локально)
-        </li>
-        <li>Создайте суперпользователя для доступа к админ-панели:<br>
-            <code>make docker-createsuperuser</code> (или <code>make createsuperuser</code> локально)
-        </li>
-        <li>Перейдите в <a href="/admin/">Админ-панель</a>, чтобы создать товары (Item).</li>
-        <li>После создания товара с ID=1, вы можете перейти на его страницу:<br>
-            <a href="/item/1">/item/1</a> (замените 1 на реальный ID товара).
-        </li>
-    </ol>
-    <p><strong>Важно:</strong> Убедитесь, что в файле <code>.env</code> прописаны ваши тестовые ключи Stripe.</p>
+    <div class="container">
+        <h1>Stripe Test Task</h1>
+        <p>Welcome! The application is running successfully.</p>
+        <h2>Next Steps:</h2>
+        <ol>
+            <li>Apply database migrations:<br>
+                <code>make docker-migrate</code> (or <code>make migrate</code> locally)
+            </li>
+            <li>Create a superuser for admin access:<br>
+                <code>make docker-createsuperuser</code> (or <code>make createsuperuser</code> locally)
+            </li>
+            <li>Go to the <a href="/admin/">Admin Panel</a> to create Items.</li>
+            <li>After creating an item (e.g., ID=1), visit its page:<br>
+                <a href="/item/1">/item/1</a> (replace 1 with the actual ID).
+            </li>
+        </ol>
+        <div class="note">
+            <strong>Note:</strong> Ensure your test Stripe keys are configured in the <code>.env</code> file.
+        </div>
+    </div>
 </body>
 </html>

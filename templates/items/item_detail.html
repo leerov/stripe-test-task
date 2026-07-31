@@ -1,18 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buy {{ item.name }}</title>
     <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        :root {
+            --bg-color: #fdfbf7;
+            --text-color: #4a5568;
+            --primary-color: #8892bf;
+            --accent-color: #635bff;
+            --card-bg: #ffffff;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .card {
+            background-color: var(--card-bg);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+        }
+        h1 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 2.2em;
+        }
+        .description {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #718096;
+        }
+        .price {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--text-color);
+            margin: 30px 0;
+        }
+        #buy-button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(99, 91, 255, 0.3);
+        }
+        #buy-button:hover {
+            background-color: #4c44c9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 91, 255, 0.4);
+        }
+        #buy-button:active {
+            transform: translateY(0);
+        }
+        #buy-button:disabled {
+            background-color: #cbd5e0;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>{{ item.name }}</h1>
-    <p>{{ item.description }}</p>
-<p>Price: {{ item.price_display }} {{ item.currency|upper }}</p>
-    <button id="buy-button">Buy</button>
+    <div class="card">
+        <h1>{{ item.name }}</h1>
+        <p class="description">{{ item.description }}</p>
+        <p class="price">{{ item.price_display }} {{ item.currency|upper }}</p>
+        <button id="buy-button">Buy Now</button>
+    </div>
     <script type="text/javascript">
       var stripe = Stripe('{{ public_key }}');
       var buyButton = document.getElementById('buy-button');
       buyButton.addEventListener('click', function() {
+        buyButton.disabled = true;
+        buyButton.textContent = 'Processing...';
         fetch('/buy/{{ item.id }}', {method: 'GET'})
         .then(response => response.json())
         .then(session => {
@@ -21,10 +97,14 @@
         .then(function(result) {
             if (result.error) {
                 alert(result.error.message);
+                buyButton.disabled = false;
+                buyButton.textContent = 'Buy Now';
             }
         })
         .catch(function(error) {
             console.error('Error:', error);
+            buyButton.disabled = false;
+            buyButton.textContent = 'Buy Now';
         });
       });
     </script>

@@ -1,54 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Successful</title>
     <style>
+        :root {
+            --bg-color: #fdfbf7;
+            --text-color: #4a5568;
+            --success-color: #68d391;
+            --accent-color: #635bff;
+            --card-bg: #ffffff;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f4f8;
-            color: #4a5568;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
         }
         .container {
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            background-color: var(--card-bg);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
             text-align: center;
             max-width: 400px;
+            width: 90%;
         }
         h1 {
-            color: #68d391;
-            margin-bottom: 20px;
+            color: var(--success-color);
+            margin-top: 0;
+            font-size: 2.2em;
         }
         p {
             font-size: 1.1em;
             line-height: 1.6;
+            margin-bottom: 30px;
         }
         a {
             display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #635bff;
+            padding: 12px 30px;
+            background-color: var(--accent-color);
             color: white;
             text-decoration: none;
-            border-radius: 6px;
-            transition: background-color 0.3s;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
         a:hover {
             background-color: #4c44c9;
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Оплата прошла успешно!</h1>
-        <p>Спасибо за вашу покупку. Ваш заказ был обработан.</p>
-        <a href="/">Вернуться на главную</a>
+        <h1>Success!</h1>
+        <p>Thank you for your purchase. Your order has been processed.</p>
+        <a href="/">Back to Home</a>
     </div>
 </body>
 </html>
