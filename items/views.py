@@ -24,6 +24,10 @@ def item_detail(request, item_id):
 def buy_item(request, item_id):
     item = get_object_or_404(Item, id=item_id)
 
+    # Stripe requires minimum amount of 50 cents
+    if item.price < 50:
+        return JsonResponse({'error': 'Price must be at least 50 cents ($0.50)'}, status=400)
+
     if item.currency.lower() == 'eur':
         stripe.api_key = settings.STRIPE_SECRET_KEY_EUR
     else:
@@ -57,6 +61,11 @@ def buy_order(request, order_id):
     items = order.items.all()
     if not items:
         return JsonResponse({'error': 'Order is empty'}, status=400)
+
+    # Validate minimum price for all items
+    for item in items:
+        if item.price < 50:
+            return JsonResponse({'error': f'Item "{item.name}" price must be at least 50 cents'}, status=400)
 
     currency = items[0].currency.lower()
 
