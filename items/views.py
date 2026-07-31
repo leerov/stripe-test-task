@@ -96,11 +96,20 @@ def buy_order(request, order_id):
             coupon_data['amount_off'] = order.discount.amount_off
             coupon_data['currency'] = currency
 
-        coupon = stripe.Coupon.create(**coupon_data)
+        try:
+            coupon = stripe.Coupon.create(**coupon_data)
+        except stripe.error.InvalidRequestError:
+            # Если купон уже существует, пробуем получить его или создаем с уникальным именем
+            coupon_data['name'] = f"{coupon_data['name']}_{order.id}"
+            coupon = stripe.Coupon.create(**coupon_data)
         session_kwargs['discounts'] = [{'coupon': coupon.id}]
 
     try:
         checkout_session = stripe.checkout.Session.create(**session_kwargs)
         return JsonResponse({'id': checkout_session.id})
     except Exception as e:
-        return JsonResponse({'error': str(e)}, status=400)
+        return JsonResponse({'error': str(e)}, status=400)def success(request):
+    return render(request, 'items/success.html')
+
+def cancel(request):
+    return render(request, 'items/cancel.html')
