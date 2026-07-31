@@ -108,7 +108,9 @@ def buy_order(request, order_id):
         checkout_session = stripe.checkout.Session.create(**session_kwargs)
         return JsonResponse({'id': checkout_session.id})
     except Exception as e:
-        return JsonResponse({'error': str(e)}, status=400)def success(request):
+        return JsonResponse({'error': str(e)}, status=400)
+
+def success(request):
     return render(request, 'items/success.html')
 
 def cancel(request):
