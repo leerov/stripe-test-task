@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: stripe-test-task
+    env: python
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    startCommand: python manage.py migrate && python manage.py create_default_superuser && gunicorn stripe_test_task.wsgi:application
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: DOMAIN
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: STRIPE_PUBLIC_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_PUBLIC_KEY_EUR
+        sync: false
+      - key: STRIPE_SECRET_KEY_EUR
+        sync: false
