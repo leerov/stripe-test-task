@@ -91,4 +91,13 @@ STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
 STRIPE_PUBLIC_KEY_EUR = os.getenv('STRIPE_PUBLIC_KEY_EUR', STRIPE_PUBLIC_KEY)
 STRIPE_SECRET_KEY_EUR = os.getenv('STRIPE_SECRET_KEY_EUR', STRIPE_SECRET_KEY)
-DOMAIN = os.getenv('DOMAIN', 'http://localhost:8000')
+
+# Domain configuration for CSRF and absolute URLs
+DOMAIN = os.getenv('DOMAIN', 'stripe-test-task.onrender.com')
+clean_domain = DOMAIN.replace('http://', '').replace('https://', '').rstrip('/')
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8000',
+    'https://localhost:8000',
+    f'https://{clean_domain}',
+    f'http://{clean_domain}'
+]
