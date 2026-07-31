@@ -1,5 +1,15 @@
 before_script:
   - cp .env.example .env
+  - |
+    cat > .env <<EOF
+    SECRET_KEY=${SECRET_KEY}
+    DEBUG=True
+    STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY}
+    STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+    STRIPE_PUBLIC_KEY_EUR=${STRIPE_PUBLIC_KEY_EUR}
+    STRIPE_SECRET_KEY_EUR=${STRIPE_SECRET_KEY_EUR}
+    DOMAIN=http://localhost:8000
+    EOF
 
 stages:
   - build
