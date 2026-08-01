@@ -1,10 +1,10 @@
 # stripe-test-task
 
 ## Онлайн демо
-- Ссылка на приложение: [https://stripe-test-task.onrender.com](https://stripe-test-task.onrender.com)
-- Админ-панель: [https://stripe-test-task.onrender.com/admin](https://stripe-test-task.onrender.com/admin)
-- Логин: `root`
-- Пароль: `uo]n/Zfs+omwY{fy0$Q+{>}Cl+ryF4`
+- Ссылка на приложение: [https://stripe-test-task.osfb.dev/](https://stripe-test-task.osfb.dev/)
+- Админ-панель: [https://stripe-test-task.osfb.dev/admin/](https://stripe-test-task.osfb.dev/admin/)
+- Логин: `admin`
+- Пароль: `admin`
 
 ## Запуск локально
 1. Скопируйте `.env.example` в `.env` и заполните своими ключами Stripe.
